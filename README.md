@@ -1,17 +1,17 @@
-# Otonom Tarım Robotu Kontrol Kartı (AgriRobot Stepper & CAN Bus Controller)
+# AgriRobot Stepper & CAN Bus Controller
 
-Bu depo, otonom domates toplama robotunun mekanik kol eklemlerini ve motor hareketlerini yüksek hassasiyetle yönetmek için tasarlanmış 4 katmanlı endüstriyel kontrol kartının donanım (PCB) dosyalarını içermektedir. Kart, NVIDIA Jetson Nano ile CAN Bus üzerinden haberleşerek otonom sistemin alt seviye motor kontrol (stepper) görevlerini üstlenir.
+Bu depo,  4 katmanlı endüstriyel kontrol kartının donanım (PCB) dosyalarını içermektedir. Kart, NVIDIA Jetson Nano ile CAN Bus üzerinden haberleşerek otonom sistemin alt seviye motor kontrol (stepper) görevlerini üstlenir.
 
 ## 🚀 Öne Çıkan Özellikler
 
 * **Ana Denetleyici (MCU):** Sistemin merkezinde yer alan STM32 serisi mikrodenetleyici[cite: 12].
-* **Güç Altyapısı:** Yüksek akım taşıyabilen `XT30_IN` ve `XT30_OUT` konnektör bağlantıları[cite: 13, 14] ile sağlanan 24V DC güç yönetimi.
-* **Haberleşme Arayüzleri:** Dış sistemlerle iletişim için modern USB Type-C portu[cite: 12] ve endüstriyel CAN Bus diferansiyel hatları.
+* **Güç Altyapısı:** Yüksek akım taşıyabilen giriş ve çıkış  konnektör bağlantıları ile sağlanan 24V DC güç yönetimi.
+* **Haberleşme Arayüzleri:** Dış sistemlerle iletişim için modern USB Type-C portu ve endüstriyel CAN Bus diferansiyel hatları.
 * **Fiziksel ve Elektriksel Yapı:** 
   * Siyah lehim maskesi (solder mask) üzerine dizilmiş yüksek yoğunluklu SMD bileşenler (kapasitörler, dirençler, butonlar)[cite: 12].
   * Parazitleri önlemek ve ısıyı dağıtmak amacıyla tasarlanmış 4 katmanlı yapı.
   * Kartın dört köşesine yerleştirilmiş, elektriksel olarak topraklanmış (`Hole GND`) sağlam montaj delikleri[cite: 13, 14].
-* **Güvenlik ve Üretim:** Yüksek akım hatlarında (24V/XT30) atlamaları ve lehim kısa devrelerini önlemek için 0.2mm - 0.3mm özel izolasyon (Clearance) kuralları uygulanmıştır.
+* **Güvenlik ve Üretim:** Yüksek akım hatlarında (24V) atlamaları ve lehim kısa devrelerini önlemek için 0.2mm - 0.3mm özel izolasyon (Clearance) kuralları uygulanmıştır.
 
 ## 📸 Tasarım Görselleri
 
@@ -38,4 +38,4 @@ Aşağıda Altium Designer üzerinden alınmış tasarım katmanları ve 3D mode
 
 ## 🛠️ Üretim Notları (Fabrication)
 
-Bu tasarım JLCPCB, PCBWay gibi standart dizgi ve üretim fabrikalarına tam uyumludur. Tasarımda minimum yol kalınlığı, matkap çapı (0.2mm minimum via deliği) ve lehim maskesi payları modern üretim standartlarına göre (Rule-Driven) optimize edilmiştir. Üretime göndermek için gereken Gerber ve NC Drill dosyalarını projeden doğrudan türetebilirsiniz.
+Bu tasarım JLCPCB, PCBWay gibi standart dizgi ve üretim fabrikalarına tam uyumludur. Tasarımda minimum yol kalınlığı 0.127, matkap çapı (0.2mm minimum via deliği) ve lehim maskesi payları modern üretim standartlarına göre (Rule-Driven) optimize edilmiştir. Üretime göndermek için gereken Gerber ve NC Drill dosyalarını projeden doğrudan türetebilirsiniz.
