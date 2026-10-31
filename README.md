@@ -1,19 +1,13 @@
-# CANBUS Stepper — STM32F303 Sürümü
+# CAN Bus Haberleşmeli Kapalı Çevrim Step Motor Sürücü Kartı (STM32F303)
 
-CAN bus haberleşmeli, papatya zincirleme (daisy chain) bağlanabilen, **kapalı çevrim step motor sürücü kartı**. NEMA 17 motorun arkasına monte edilir; her motor kendi işlemcisi, sürücüsü ve enkoderi olan akıllı bir düğüm (node) olur. Güç ve CAN hattı tek bir XT30 kablosuyla bir sonraki karta aktarılır.
+CAN bus haberleşmeli, papatya zincirleme (daisy chain) bağlanabilen, **kapalı çevrim step motor sürücü kartı**. NEMA 17 motorun arkasına monte edilir; her motor kendi işlemcisi, sürücüsü ve enkoderi olan akıllı bir düğüm (node) olur. Güç ve CAN hattı tek bir kablo ile  bir sonraki karta aktarılır.
 
-> Bu proje, Things by Josh'un [CANBUS Stepper V2](https://thingsbyjosh.com/products/canbus-stepper) tasarımından esinlenen bir **eşlenik (clone) tasarımdır**. Referans karttaki **ESP32-S3 yerine STM32F303** mikrodenetleyicisi kullanılmıştır. Lisans 2. sınıf Robotik Uygulamalar dersi proje ödevi kapsamında geliştirilmiştir.
 
-<p align="center">
-  <img src="docs/images/pcb_3d_top.png" alt="Kartın 3B görünümü (üst yüz)" width="420">
-</p>
 
 ---
-
 ## İçindekiler
 
 - [Özellikler](#özellikler)
-- [ESP32-S3 ile Farklar](#esp32-s3-ile-farklar)
 - [Donanım Özeti](#donanım-özeti)
 - [PCB Görselleri](#pcb-görselleri)
 - [Pin Atamaları](#pin-atamaları)
@@ -25,7 +19,7 @@ CAN bus haberleşmeli, papatya zincirleme (daisy chain) bağlanabilen, **kapalı
 - [Test Planı](#test-planı)
 - [Güvenlik Uyarıları](#güvenlik-uyarıları)
 - [Bilinen Sorunlar ve Yapılacaklar](#bilinen-sorunlar-ve-yapılacaklar)
-- [Lisans ve Atıf](#lisans-ve-atıf)
+- [Lisans](#lisans)
 
 ---
 
@@ -46,21 +40,6 @@ CAN bus haberleşmeli, papatya zincirleme (daisy chain) bağlanabilen, **kapalı
 | İzleme | VIN ölçümü, NTC ile kart sıcaklığı, MCU sıcaklığı |
 | Mekanik | ≈ 42 × 42 mm, 31 × 31 mm montaj delikleri, Ø3,3 mm |
 
-## ESP32-S3 ile Farklar
-
-| Konu | Referans (ESP32-S3) | Bu proje (STM32F303) |
-|---|---|---|
-| CAN denetleyici | TWAI | **bxCAN** (dahili) |
-| Kablosuz | Wi-Fi / BLE | Yok |
-| USB | Yerleşik USB Serial/JTAG | USB FS cihaz (CDC) |
-| Programlama | USB / Arduino | SWD (ST-Link) ve/veya USB DFU — TODO |
-| Yazılım ortamı | Arduino + esp32 paketi | TODO: STM32CubeIDE / PlatformIO / Arduino_Core_STM32 |
-| ADC | 12 bit, 11 dB zayıflatma | 12 bit, 3,3 V referans (VIN bölücüsü ×11, 29 V → 2,64 V) |
-| Çip sıcaklığı | ESP32 sıcaklık sensörü | STM32 dahili sıcaklık sensörü |
-| Adım üretimi | Zamanlayıcı kesmesi | Donanım zamanlayıcıları (TIM) — TODO: kullanılan TIM |
-
-CAN protokolü (ID yapısı, komut ve telemetri tipleri) referansla **uyumlu** tutulmuştur; bu sayede referans projenin Python örnekleri ve seri köprü biçimi kullanılabilir. TODO: uyumluluk doğrulandığında bu satırı güncelleyin.
-
 ## Donanım Özeti
 
 ```
@@ -79,6 +58,8 @@ STM32F303 ◄── I²C ──► MT6701 (kartın alt yüzünde, motor mili eks
 - **Yalnızca USB ile besleme:** İşlemci çalışır, motor sürücüsü enerjisiz kalır (yapılandırma ve test için).
 - **Diyot-VEYA:** VIN_BUS ve USB 5 V, Schottky diyotlarla birleştirilir; VIN takılıp çıkarılırken MCU sıfırlanmaz.
 - **Kapalı çevrim:** Enkoder sayımı mikroadıma çevrilir, iç konum sayacı ile fark eşiği aşarsa sayaç enkoder değerine eşitlenir; kaçırılan adımlar otomatik telafi edilir.
+- **Adım üretimi:** STM32 donanım zamanlayıcıları ile yapılır. TODO: kullanılan TIM ve kanal bilgisi.
+- **ADC:** VIN bölücüsü ×11 (29 V → 2,64 V), 12 bit ADC, 3,3 V referans.
 
 ### Ana Bileşenler
 
@@ -124,10 +105,10 @@ TODO: STM32F303 için kendi pin atamanızı doldurun.
 
 | Sinyal | STM32 pini | Yön | Açıklama |
 |---|---|---|---|
-| CAN_TX | TODO (örn. PA12 / PB9) | Ç | TCAN3414 TXD (bxCAN) |
-| CAN_RX | TODO (örn. PA11 / PB8) | G | TCAN3414 RXD (bxCAN) |
+| CAN_TX | TODO (örn. PB9) | Ç | TCAN3414 TXD (bxCAN) |
+| CAN_RX | TODO (örn. PB8) | G | TCAN3414 RXD (bxCAN) |
 | CAN_STB | TODO | Ç | TCAN3414 STB (0 = normal) |
-| STEP | TODO | Ç | TMC2209 STEP (zamanlayıcı çıkışı önerilir) |
+| STEP | TODO | Ç | TMC2209 STEP (zamanlayıcı çıkışı) |
 | DIR | TODO | Ç | TMC2209 DIR |
 | TMC_EN | TODO | Ç | TMC2209 EN (aktif-düşük) |
 | TMC_UART TX/RX | TODO | G/Ç | PDN_UART (TX 1 kΩ üzerinden) |
@@ -140,13 +121,13 @@ TODO: STM32F303 için kendi pin atamanızı doldurun.
 | SW1 / SW2 | TODO | G | Butonlar |
 | LED1 / LED2 | TODO | Ç | Programlanabilir LED'ler |
 | AUX1 / AUX2 | TODO | G/Ç | AUX konnektörü (alt yüz) |
-| USB D− / D+ | PA11 / PA12 (USB kullanılıyorsa) | USB | USB-C |
+| USB D− / D+ | PA11 / PA12 | USB | USB-C |
 | BOOT0 | TODO | G | DFU / bootloader girişi |
 | SWDIO / SWCLK | PA13 / PA14 | — | Programlama |
 
-> **Not:** STM32F303'te CAN ve USB varsayılan olarak PA11/PA12 pinlerini paylaşır. Her ikisini birden kullanıyorsanız CAN için alternatif pinleri (örn. PB8/PB9) kullandığınızdan emin olun ve bunu buraya yazın. TODO
+> **Not:** STM32F303'te CAN ve USB varsayılan olarak PA11/PA12 pinlerini paylaşır. Her ikisini birden kullandığınız için CAN'ın alternatif pinlerde (örn. PB8/PB9) olması gerekir. Kendi seçiminizi yukarıya yazın. TODO
 
-> **Not:** AUX1/AUX2 sırası referans belgelerde tutarsızdır. Kartınızdaki serigrafiye göre sırayı burada açıkça belirtin. TODO
+> **Not:** AUX1/AUX2 sırasını kartınızdaki serigrafiye göre burada açıkça belirtin. TODO
 
 ## CAN Protokolü
 
@@ -182,7 +163,7 @@ Seçilmiş mesajlar:
 
 Örnek: Düğüm 3'ü 90° konumuna götür → `ID = (3 << 6) | 1 = 0xC1`, veri = `00 00 00 00 00 80 56 40` (double 90,0).
 
-Tüm komut/telemetri listesi için referans protokol belgesine bakınız: [CANBUS-Stepper](https://github.com/joshr120/CANBUS-Stepper).
+TODO: Firmware'inizde uyguladığınız tüm komut ve telemetri mesajlarını `docs/` altında ayrı bir dosyada listeleyin.
 
 ### USB ↔ CAN seri köprü biçimi
 
@@ -325,18 +306,11 @@ TODO: Yaptığınız testlerin sonuçlarını, grafiklerini ve notlarını buray
 - [ ] Ters kinematik ile kartezyen komut
 - [ ] ROS 2 köprüsü
 
-## Lisans ve Atıf
+## Lisans
 
-Bu proje, aşağıdaki açık kaynak çalışmalardan **esinlenmiş / türetilmiştir**:
+TODO: Lisansınızı seçin ve `LICENSE` dosyasını ekleyin (örn. GPL-3.0). Donanım dosyaları için ayrı bir lisans kullanacaksanız (örn. CERN-OHL-S) burada belirtin.
 
-- Things by Josh — [CANBUS Stepper V2](https://thingsbyjosh.com/products/canbus-stepper) ve [CANBUS-Stepper deposu](https://github.com/joshr120/CANBUS-Stepper) (veri sayfası, CAN protokol belgesi, düğüm yazılımı, Python örneği — **GPL-3.0**)
-- Things by Josh — [PD-Stepper deposu](https://github.com/joshr120/PD-Stepper) (TMC2209 çevresi, **GPL-3.0**)
-
-Referans tasarımın V2 şematiği ve PCB dosyaları yayımlanmamıştır; bu karttaki devreler veri sayfası, yazılım ve açık PD Stepper şematiği esas alınarak yeniden tasarlanmıştır.
-
-Türev çalışma olarak bu depo **GNU GPL v3.0** ile lisanslanmıştır. TODO: Donanım dosyaları için ayrı bir lisans (örn. CERN-OHL-S) kullanacaksanız burada belirtin. Ayrıntılar için [`LICENSE`](LICENSE) dosyasına bakınız.
-
-### Kullanılan Kaynaklar
+### Kullanılan Veri Sayfaları
 
 - Analog Devices / Trinamic — TMC2209 Datasheet
 - Texas Instruments — TCAN3413 / TCAN3414 Datasheet
