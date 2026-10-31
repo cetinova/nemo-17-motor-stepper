@@ -19,14 +19,17 @@ Aşağıda Altium Designer üzerinden alınmış tasarım katmanları ve 3D mode
 
 ### 3D Kart Görünümü
 *(Kompakt tasarım, USB-C arayüzü, XT30 güç girişleri ve STM32 yerleşimi)*
-![3D Görünüm](docs/image_604a75.png) 
+<img width="777" height="781" alt="image" src="https://github.com/user-attachments/assets/caf8cd30-6403-45bb-b8f6-ff11acbb20eb" />
+
 
 ### Katman İncelemesi (Top & Bottom Layer)
 *(Sol: Kırmızı üst katmandaki (Top Layer) yoğun sinyal yolları. Sağ: Mavi alt katmandaki (Bottom Layer) güç ve poligon dökümleri)*
 
 | Üst Katman (Top Layer) | Alt Katman (Bottom Layer) |
 | :---: | :---: |
-| ![Top Layer](docs/image_604a5a.png) | ![Bottom Layer](docs/image_604a5d.png) |
+| <img width="833" height="775" alt="image" src="https://github.com/user-attachments/assets/a428175d-5b4a-45dc-b919-a9afb29c8bd1" />
+ | <img width="787" height="807" alt="image" src="https://github.com/user-attachments/assets/8e99f5b5-e2a6-4992-bcf6-03d49de00c46" />
+ |
 
 ## 📁 Depo İçeriği
 
