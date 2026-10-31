@@ -26,10 +26,11 @@ Aşağıda Altium Designer üzerinden alınmış tasarım katmanları ve 3D mode
 *(Sol: Kırmızı üst katmandaki (Top Layer) yoğun sinyal yolları. Sağ: Mavi alt katmandaki (Bottom Layer) güç ve poligon dökümleri)*
 
 | Üst Katman (Top Layer) | Alt Katman (Bottom Layer) |
-| :---: | :---: |
-| <img width="833" height="775" alt="image" src="https://github.com/user-attachments/assets/a428175d-5b4a-45dc-b919-a9afb29c8bd1" />
- | <img width="787" height="807" alt="image" src="https://github.com/user-attachments/assets/8e99f5b5-e2a6-4992-bcf6-03d49de00c46" />
- |
+---
+ <img width="833" height="775" alt="image" src="https://github.com/user-attachments/assets/a428175d-5b4a-45dc-b919-a9afb29c8bd1" />
+  ---
+  <img width="787" height="807" alt="image" src="https://github.com/user-attachments/assets/8e99f5b5-e2a6-4992-bcf6-03d49de00c46" />
+ 
 
 ## 📁 Depo İçeriği
 
