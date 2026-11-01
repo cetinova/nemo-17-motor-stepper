@@ -8,9 +8,9 @@ Bu depo,  4 katmanlı endüstriyel kontrol kartının donanım (PCB) dosyaların
 * **Güç Altyapısı:** Yüksek akım taşıyabilen giriş ve çıkış  konnektör bağlantıları ile sağlanan 24V DC güç yönetimi.
 * **Haberleşme Arayüzleri:** Dış sistemlerle iletişim için modern USB Type-C portu ve endüstriyel CAN Bus diferansiyel hatları.
 * **Fiziksel ve Elektriksel Yapı:** 
-  * Siyah lehim maskesi (solder mask) üzerine dizilmiş yüksek yoğunluklu SMD bileşenler (kapasitörler, dirençler, butonlar)[cite: 12].
+  * Siyah lehim maskesi (solder mask) üzerine dizilmiş yüksek yoğunluklu SMD bileşenler (kapasitörler, dirençler, butonlar)
   * Parazitleri önlemek ve ısıyı dağıtmak amacıyla tasarlanmış 4 katmanlı yapı.
-  * Kartın dört köşesine yerleştirilmiş, elektriksel olarak topraklanmış (`Hole GND`) sağlam montaj delikleri[cite: 13, 14].
+  * Kartın dört köşesine yerleştirilmiş, elektriksel olarak topraklanmış (`Hole GND`) sağlam montaj delikleri[
 * **Güvenlik ve Üretim:** Yüksek akım hatlarında (24V) atlamaları ve lehim kısa devrelerini önlemek için 0.2mm - 0.3mm özel izolasyon (Clearance) kuralları uygulanmıştır.
 
 ## 📸 Tasarım Görselleri
@@ -25,7 +25,7 @@ Aşağıda Altium Designer üzerinden alınmış tasarım katmanları ve 3D mode
 ### Katman İncelemesi (Top & Bottom Layer)
 *(Sol: Kırmızı üst katmandaki (Top Layer) yoğun sinyal yolları. Sağ: Mavi alt katmandaki (Bottom Layer) güç ve poligon dökümleri)*
 
-| Üst Katman (Top Layer) | Alt Katman (Bottom Layer) |
+
 ---
  <img width="833" height="775" alt="image" src="https://github.com/user-attachments/assets/a428175d-5b4a-45dc-b919-a9afb29c8bd1" />
 
